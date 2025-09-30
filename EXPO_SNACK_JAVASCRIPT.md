@@ -1,5 +1,21 @@
+# 🚀 **Expo Snack Setup - Pure JavaScript Version**
+
+## **Step 1: Go to Expo Snack**
+
+Visit: [snack.expo.dev](https://snack.expo.dev)
+
+## **Step 2: Create New Snack**
+
+1. Click "Create a new Snack"
+2. Choose "Blank" template (not TypeScript)
+
+## **Step 3: Replace App.js**
+
+Copy and paste this **pure JavaScript** code into the App.js file:
+
+```javascript
 /**
- * Team Generator App
+ * Team Generator App - Pure JavaScript Version
  * A React Native app for randomly generating teams from a list of names
  */
 
@@ -16,8 +32,14 @@ import {
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
-// Simple inline components to avoid import issues
-const Button = ({ title, onPress, disabled = false, style, variant = 'primary' }) => (
+// Simple inline components
+const Button = ({
+  title,
+  onPress,
+  disabled = false,
+  style,
+  variant = 'primary',
+}) => (
   <TouchableOpacity
     style={[
       styles.button,
@@ -27,19 +49,28 @@ const Button = ({ title, onPress, disabled = false, style, variant = 'primary' }
     ]}
     onPress={onPress}
     disabled={disabled}
-    activeOpacity={0.7}>
+    activeOpacity={0.7}
+  >
     <Text
       style={[
         styles.buttonText,
         variant === 'primary' ? styles.primaryText : styles.secondaryText,
         disabled && styles.disabledText,
-      ]}>
+      ]}
+    >
       {title}
     </Text>
   </TouchableOpacity>
 );
 
-const Input = ({ label, placeholder, value, onChangeText, keyboardType, style }) => (
+const Input = ({
+  label,
+  placeholder,
+  value,
+  onChangeText,
+  keyboardType,
+  style,
+}) => (
   <View style={styles.inputContainer}>
     {label && <Text style={styles.label}>{label}</Text>}
     <View style={[styles.input, style]}>
@@ -69,7 +100,7 @@ const TeamCard = ({ team }) => (
 );
 
 // Team generation utility functions
-const shuffleArray = (array) => {
+const shuffleArray = array => {
   const shuffled = [...array];
   for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -85,12 +116,12 @@ const generateTeams = (names, numberOfTeams) => {
 
   const shuffledNames = shuffleArray(names);
   const teams = [];
-  
+
   for (let i = 0; i < numberOfTeams; i++) {
     teams.push({
       id: i + 1,
       name: `Team ${i + 1}`,
-      members: []
+      members: [],
     });
   }
 
@@ -107,20 +138,26 @@ const validateInput = (names, numberOfTeams) => {
     return { isValid: false, errorMessage: 'Please add at least one name' };
   }
   if (numberOfTeams <= 0) {
-    return { isValid: false, errorMessage: 'Number of teams must be greater than 0' };
+    return {
+      isValid: false,
+      errorMessage: 'Number of teams must be greater than 0',
+    };
   }
   if (numberOfTeams > names.length) {
-    return { isValid: false, errorMessage: 'Number of teams cannot be greater than number of names' };
+    return {
+      isValid: false,
+      errorMessage: 'Number of teams cannot be greater than number of names',
+    };
   }
   return { isValid: true };
 };
 
-function App(): React.JSX.Element {
-  const [names, setNames] = useState<string[]>([]);
-  const [currentName, setCurrentName] = useState<string>('');
-  const [numberOfTeams, setNumberOfTeams] = useState<string>('');
+function App() {
+  const [names, setNames] = useState([]);
+  const [currentName, setCurrentName] = useState('');
+  const [numberOfTeams, setNumberOfTeams] = useState('');
   const [teams, setTeams] = useState([]);
-  const [isGenerated, setIsGenerated] = useState<boolean>(false);
+  const [isGenerated, setIsGenerated] = useState(false);
 
   const addName = () => {
     const trimmedName = currentName.trim();
@@ -132,16 +169,16 @@ function App(): React.JSX.Element {
     }
   };
 
-  const removeName = (nameToRemove: string) => {
+  const removeName = nameToRemove => {
     setNames(names.filter(name => name !== nameToRemove));
   };
 
   const generateTeamsHandler = () => {
     const numTeams = parseInt(numberOfTeams, 10);
     const validation = validateInput(names, numTeams);
-    
+
     if (!validation.isValid) {
-      Alert.alert('Invalid Input', validation.errorMessage!);
+      Alert.alert('Invalid Input', validation.errorMessage);
       return;
     }
 
@@ -158,11 +195,12 @@ function App(): React.JSX.Element {
     setIsGenerated(false);
   };
 
-  const renderNameItem = ({ item }: { item: string }) => (
+  const renderNameItem = ({ item }) => (
     <TouchableOpacity
       style={styles.nameItem}
       onPress={() => removeName(item)}
-      activeOpacity={0.7}>
+      activeOpacity={0.7}
+    >
       <Text style={styles.nameText}>{item}</Text>
       <Text style={styles.removeText}>×</Text>
     </TouchableOpacity>
@@ -171,7 +209,10 @@ function App(): React.JSX.Element {
   return (
     <View style={styles.container}>
       <StatusBar style="dark" />
-      <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        style={styles.scrollView}
+        showsVerticalScrollIndicator={false}
+      >
         <View style={styles.content}>
           <Text style={styles.title}>Team Generator</Text>
           <Text style={styles.subtitle}>
@@ -195,12 +236,10 @@ function App(): React.JSX.Element {
                 style={styles.addButton}
               />
             </View>
-            
+
             {names.length > 0 && (
               <View style={styles.namesList}>
-                <Text style={styles.namesTitle}>
-                  Names ({names.length}):
-                </Text>
+                <Text style={styles.namesTitle}>Names ({names.length}):</Text>
                 <FlatList
                   data={names}
                   renderItem={renderNameItem}
@@ -231,7 +270,7 @@ function App(): React.JSX.Element {
               disabled={names.length === 0 || !numberOfTeams}
               style={styles.generateButton}
             />
-            
+
             {isGenerated && (
               <Button
                 title="Reset"
@@ -429,3 +468,36 @@ const styles = StyleSheet.create({
 });
 
 export default App;
+```
+
+## **Step 4: Save and Share**
+
+1. Click "Save" in Expo Snack
+2. Copy the shareable link
+3. Send it to anyone - they can test your app instantly!
+
+## **Step 5: Test Your App**
+
+- **Web**: Click "Run" to test in browser
+- **Phone**: Scan QR code with Expo Go app
+- **Share**: Send the link to friends
+
+## **🎉 Benefits of Pure JavaScript**
+
+- ✅ **Simpler syntax** - no TypeScript annotations
+- ✅ **Easier to learn** - just JavaScript
+- ✅ **Faster development** - no type checking delays
+- ✅ **More flexible** - easier to experiment
+- ✅ **Same functionality** - works exactly the same
+
+## **🔄 What Changed from TypeScript**
+
+- Removed `: React.JSX.Element` return type
+- Removed `: string[]` type annotations
+- Removed `: boolean` type annotations
+- Removed `: { item: string }` parameter types
+- Removed `!` non-null assertions
+- Changed `index.ts` to `index.js`
+- Changed `App.tsx` to `App.js`
+
+**Your team generator app now works in pure JavaScript!** 🎉📱
