@@ -1,44 +1,35 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
+ * Team Generator App
+ * A React Native app for randomly generating teams from a list of names
  */
 
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
+import React from 'react';
 import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  useColorScheme,
+} from 'react-native';
+import { TeamGeneratorScreen } from './src/screens/TeamGeneratorScreen';
 
-function App() {
+function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
-    <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <AppContent />
-    </SafeAreaProvider>
-  );
-}
-
-function AppContent() {
-  const safeAreaInsets = useSafeAreaInsets();
-
-  return (
-    <View style={styles.container}>
-      <NewAppScreen
-        templateFileName="App.tsx"
-        safeAreaInsets={safeAreaInsets}
+    <SafeAreaView style={styles.container}>
+      <StatusBar
+        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+        backgroundColor="#FFFFFF"
       />
-    </View>
+      <TeamGeneratorScreen />
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#FFFFFF',
   },
 });
 
